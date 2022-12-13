@@ -3,7 +3,7 @@ package fr.scarwxk.bean;
 public class Port {
     private final double x;
     private final double y;
-    Quais quai;
+    private Quais quai;
     public Port(double x, double y) {
         this.x = x;
         this.y = y;
