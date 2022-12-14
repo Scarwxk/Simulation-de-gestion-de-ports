@@ -11,7 +11,11 @@ public class Bateau {
     protected int speed;
 
     protected BufferedImage up1, up2, up3, up4, down1, down2, down3, down4, left1, left2, left3, left4, right1, right2, right3, right4;
-    public String direction;
+    private String direction;
+
+    private int spriteCounter = 0;
+    private int spriteNum = 1;
+
     public Bateau() {
         this.depart = null;
         this.arrivee = null;
@@ -50,5 +54,29 @@ public class Bateau {
             return (float)(Math.sqrt(Math.pow(this.arrivee.retourneX() - this.depart.retourneX(), 2) + Math.pow(this.arrivee.retourneY() - this.depart.retourneY(), 2)));
 
         return -1;
+    }
+
+    public String getDirection() {
+        return direction;
+    }
+
+    public void setDirection(String direction) {
+        this.direction = direction;
+    }
+
+    public int getSpriteCounter() {
+        return spriteCounter;
+    }
+
+    public void setSpriteCounter(int spriteCounter) {
+        this.spriteCounter = spriteCounter;
+    }
+
+    public int getSpriteNum() {
+        return spriteNum;
+    }
+
+    public void setSpriteNum(int spriteNum) {
+        this.spriteNum = spriteNum;
     }
 }
