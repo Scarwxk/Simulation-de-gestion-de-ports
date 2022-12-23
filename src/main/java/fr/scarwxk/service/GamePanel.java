@@ -8,20 +8,20 @@ import java.awt.*;
 
 public class GamePanel extends JPanel implements Runnable{
     //SCREEN SETTINGS
-    final int originalTileSize = 16; //16x16 tile
-    final int scale = 5;
-    final int tileSize = originalTileSize * scale; //80x80 tile
-    private final int maxScreenCol = 16;
-    private final int maxScreenRow = 12;
-    final int screenWidth = tileSize * maxScreenCol; // 768 pixels
-    final int screenHeight = tileSize * maxScreenRow; // 576 pixels
+    final static int originalTileSize = 16; //16x16 tile
+    final static int scale = 5;
+    final static int tileSize = originalTileSize * scale; //80x80 tile
+    private static final int maxScreenCol = 16;
+    private static final int maxScreenRow = 12;
+    final static int screenWidth = tileSize * maxScreenCol; // 768 pixels
+    final static int screenHeight = tileSize * maxScreenRow; // 576 pixels
+    final static int FPS = 60;
+    final static int INT_INTERVAL = 1000000000;
+    private final TileManager tileM = new TileManager(this);
+    private final KeyHandler keyH = new KeyHandler();
+    private Thread gameThread;
 
-    int FPS = 60;
-    TileManager tileM = new TileManager(this);
-    KeyHandler keyH = new KeyHandler();
-    Thread gameThread;
-
-    Player player = new Player(this, keyH);
+    private final Player player = new Player(this, keyH);
 
     public GamePanel()
     {
@@ -43,7 +43,7 @@ public class GamePanel extends JPanel implements Runnable{
     @Override
     public void run() {
 
-        double drawInterval = 1000000000/FPS; // 0.01666 sec
+        double drawInterval = INT_INTERVAL/FPS; // 0.01666 sec
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
@@ -67,7 +67,7 @@ public class GamePanel extends JPanel implements Runnable{
                 drawCount++;
             }
 
-            if(timer >= 1000000000)
+            if(timer >= INT_INTERVAL)
             {
                 System.out.println("FPS :" + drawCount);
                 drawCount = 0;
@@ -75,6 +75,7 @@ public class GamePanel extends JPanel implements Runnable{
             }
         }
     }
+
 
     public void update()
     {

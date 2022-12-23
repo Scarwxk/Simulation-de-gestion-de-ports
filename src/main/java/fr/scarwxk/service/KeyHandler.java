@@ -16,10 +16,10 @@ public class KeyHandler implements KeyListener {
         int code = e.getKeyCode();
 
         switch (code) {
-            case KeyEvent.VK_Z -> upPressed = true;
-            case KeyEvent.VK_S -> downPressed = true;
-            case KeyEvent.VK_Q -> leftPressed = true;
-            case KeyEvent.VK_D -> rightPressed = true;
+            case KeyEvent.VK_Z, KeyEvent.VK_UP -> upPressed = true;
+            case KeyEvent.VK_S, KeyEvent.VK_DOWN -> downPressed = true;
+            case KeyEvent.VK_Q, KeyEvent.VK_LEFT -> leftPressed = true;
+            case KeyEvent.VK_D, KeyEvent.VK_RIGHT -> rightPressed = true;
         }
     }
 
@@ -28,10 +28,10 @@ public class KeyHandler implements KeyListener {
         int code = e.getKeyCode();
 
         switch (code) {
-            case KeyEvent.VK_Z -> upPressed = false;
-            case KeyEvent.VK_S -> downPressed = false;
-            case KeyEvent.VK_Q -> leftPressed = false;
-            case KeyEvent.VK_D -> rightPressed = false;
+            case KeyEvent.VK_Z, KeyEvent.VK_UP -> upPressed = false;
+            case KeyEvent.VK_S, KeyEvent.VK_DOWN -> downPressed = false;
+            case KeyEvent.VK_Q, KeyEvent.VK_LEFT -> leftPressed = false;
+            case KeyEvent.VK_D, KeyEvent.VK_RIGHT -> rightPressed = false;
         }
     }
 }

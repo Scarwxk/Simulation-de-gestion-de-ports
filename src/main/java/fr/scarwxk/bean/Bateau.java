@@ -7,10 +7,14 @@ public class Bateau {
     private Port arrivee;
     private boolean enMer;
 
-    protected int x, y;
+    protected int worldX, worldY;
     protected int speed;
 
-    protected BufferedImage up1, up2, up3, up4, down1, down2, down3, down4, left1, left2, left3, left4, right1, right2, right3, right4;
+    protected BufferedImage
+            up1, up2, up3, up4,
+            down1, down2, down3, down4,
+            left1, left2, left3, left4,
+            right1, right2, right3, right4;
     private String direction;
 
     private int spriteCounter = 0;
@@ -51,7 +55,8 @@ public class Bateau {
 
     public float distance() {
         if (!this.enMer && this.depart != null && this.arrivee != null)
-            return (float)(Math.sqrt(Math.pow(this.arrivee.retourneX() - this.depart.retourneX(), 2) + Math.pow(this.arrivee.retourneY() - this.depart.retourneY(), 2)));
+            return (float)(Math.sqrt(Math.pow(this.arrivee.retourneX() - this.depart.retourneX(), 2) +
+                    Math.pow(this.arrivee.retourneY() - this.depart.retourneY(), 2)));
 
         return -1;
     }

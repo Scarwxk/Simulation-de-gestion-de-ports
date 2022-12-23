@@ -7,12 +7,13 @@ import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
+import java.util.Hashtable;
 import java.util.Objects;
 
 public class Player extends Bateau{
     GamePanel gp;
     KeyHandler keyH;
-
+    
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
@@ -23,12 +24,11 @@ public class Player extends Bateau{
 
     public void setDefaultValues()
     {
-        this.x = 100;
-        this.y = 100;
+        this.worldX = 100;
+        this.worldY = 100;
         this.speed = 4;
         setDirection("up");
     }
-
     public void getPlayerImage()
     {
         try {
@@ -48,66 +48,56 @@ public class Player extends Bateau{
             right2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Player/right02.png")));
             right3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Player/right03.png")));
             right4 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Player/right04.png")));
-        }catch (IOException e)
+        }
+        catch (IOException e)
         {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Function update frame
+     */
     public void update()
     {
         if(keyH.upPressed)
         {
             setDirection("up");
-            this.y -= this.speed;
+            this.worldY -= this.speed;
         }
         if(keyH.downPressed)
         {
             setDirection("down");
-            this.y += this.speed;
+            this.worldY += this.speed;
         }
         if(keyH.leftPressed)
         {
             setDirection("left");
-            this.x -= this.speed;
+            this.worldX -= this.speed;
         }
         if(keyH.rightPressed)
         {
             setDirection("right");
-            this.x += this.speed;
+            this.worldX += this.speed;
         }
 
         setSpriteCounter(getSpriteCounter() + 1);
 
         if(getSpriteCounter() > 10)
         {
-            if(getSpriteNum() == 1)
-            {
-                setSpriteNum(2);
-            }
-            else if(getSpriteNum() == 2)
-            {
-                setSpriteNum(3);
-            }
-            else if(getSpriteNum() == 3)
-            {
-                setSpriteNum(4);
-            }
-            else if(getSpriteNum() == 4)
-            {
-                setSpriteNum(1);
-            }
+            setSpriteNum((getSpriteNum() + 1) % 4);
             setSpriteCounter(0);
         }
 
     }
 
+    /**
+     * Dessine le sprite en fonction de la direction
+     * @param g2 Element graphique en 2D
+     */
+
     public void draw(Graphics2D g2)
     {
-        /*g2.setColor(Color.white);
-
-        g2.fillRect(this.x, this.y, gp.getTileSize(), gp.getTileSize());*/
-
         BufferedImage image = null;
 
         switch (getDirection()) {
@@ -117,25 +107,26 @@ public class Player extends Bateau{
             case "right" -> image = getBufferedImage(right1, right2, right3, right4);
         }
 
-        g2.drawImage(image, x, y, gp.getTileSize(), gp.getTileSize(), null);
+        g2.drawImage(image, worldX, worldY, gp.getTileSize(), gp.getTileSize(), null);
 
     }
 
-    private BufferedImage getBufferedImage(BufferedImage up1, BufferedImage up2, BufferedImage up3, BufferedImage up4) {
-        BufferedImage image = null;
+    /**
+     * Renvoie l'image à afficher pour le sprite
+     * @param image1
+     * @param image2
+     * @param image3
+     * @param image4
+     * @return BufferedImage Sprite image
+     */
+    private BufferedImage getBufferedImage(BufferedImage image1, BufferedImage image2, BufferedImage image3, BufferedImage image4) {
 
-        if (getSpriteNum() == 1) {
-            image = up1;
-        }
-        if (getSpriteNum() == 2) {
-            image = up2;
-        }
-        if (getSpriteNum() == 3) {
-            image = up3;
-        }
-        if (getSpriteNum() == 4) {
-            image = up4;
-        }
-        return image;
+        var spriteDict = new Hashtable<Integer, BufferedImage>();
+        spriteDict.put(0, image1);
+        spriteDict.put(1, image2);
+        spriteDict.put(2, image3);
+        spriteDict.put(3, image4);
+
+        return spriteDict.get(getSpriteNum());
     }
 }

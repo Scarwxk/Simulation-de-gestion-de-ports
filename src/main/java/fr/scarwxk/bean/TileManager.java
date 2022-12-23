@@ -12,8 +12,8 @@ import java.util.Objects;
 
 public class TileManager {
 
-    GamePanel gp;
-    Tile[] tile;
+    private final GamePanel gp;
+    private final Tile[] tile;
 
     int[][] mapTileNum;
 
@@ -30,17 +30,25 @@ public class TileManager {
 
     public void getTileImage()
     {
-        try{
+        try
+        {
             tile[0] = new Tile();
             tile[0].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/water.png"))));
-        }catch (IOException e){
+        }
+        catch (IOException e)
+        {
             e.printStackTrace();
         }
     }
 
+    /**
+     * Charge une map stockée dans un fichier txt
+     * @param filePath chemin vers le fichier txt
+     */
     public void loadMap(String filePath)
     {
-        try{
+        try
+        {
             InputStream is = getClass().getResourceAsStream(filePath);
             assert is != null;
             BufferedReader br = new BufferedReader(new InputStreamReader(is));
@@ -69,7 +77,8 @@ public class TileManager {
             }
             br.close();
 
-        }catch (Exception e)
+        }
+        catch (Exception e)
         {
             e.printStackTrace();
         }
