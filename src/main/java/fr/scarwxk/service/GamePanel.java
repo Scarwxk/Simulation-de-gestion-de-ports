@@ -6,25 +6,32 @@ import fr.scarwxk.bean.TileManager;
 import javax.swing.*;
 import java.awt.*;
 
-public class GamePanel extends JPanel implements Runnable{
+public class GamePanel extends JPanel implements Runnable {
     //SCREEN SETTINGS
-    final static int originalTileSize = 16; //16x16 tile
-    final static int scale = 5;
-    final static int tileSize = originalTileSize * scale; //80x80 tile
+    private final static int originalTileSize = 16; //16x16 tile
+    private final static int scale = 4;
+    private final static int tileSize = originalTileSize * scale; //64x64 tile
     private static final int maxScreenCol = 16;
     private static final int maxScreenRow = 12;
-    final static int screenWidth = tileSize * maxScreenCol; // 768 pixels
-    final static int screenHeight = tileSize * maxScreenRow; // 576 pixels
-    final static int FPS = 60;
-    final static int INT_INTERVAL = 1000000000;
+    private final static int screenWidth = tileSize * maxScreenCol; // 768 pixels
+    private final static int screenHeight = tileSize * maxScreenRow; // 576 pixels
+
+    // WORLD SETTINGS
+
+    private final static int maxWorldCol = 50;
+    private final static int maxWorldRow = 50;
+    private final static int worldWidth = tileSize * maxWorldCol;
+    private final static int worldHeight = tileSize * maxWorldRow;
+
+    private final static int FPS = 60;
+    private final static int INT_INTERVAL = 1000000000;
     private final TileManager tileM = new TileManager(this);
     private final KeyHandler keyH = new KeyHandler();
     private Thread gameThread;
 
     private final Player player = new Player(this, keyH);
 
-    public GamePanel()
-    {
+    public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
         this.setBackground(Color.black);
         this.setDoubleBuffered(true);
@@ -32,8 +39,7 @@ public class GamePanel extends JPanel implements Runnable{
         this.setFocusable(true);
     }
 
-    public void startGameThread()
-    {
+    public void startGameThread() {
         gameThread = new Thread(this);
         gameThread.start();
     }
@@ -43,22 +49,20 @@ public class GamePanel extends JPanel implements Runnable{
     @Override
     public void run() {
 
-        double drawInterval = INT_INTERVAL/FPS; // 0.01666 sec
+        double drawInterval = INT_INTERVAL / FPS; // 0.01666 sec
         double delta = 0;
         long lastTime = System.nanoTime();
         long currentTime;
         long timer = 0;
         int drawCount = 0;
 
-        while (gameThread != null)
-        {
+        while (gameThread != null) {
             currentTime = System.nanoTime();
             delta += (currentTime - lastTime) / drawInterval;
             timer += (currentTime - lastTime);
             lastTime = currentTime;
 
-            if(delta >= 1)
-            {
+            if (delta >= 1) {
                 // 1 UPDATE : Update info such as player positions
                 update();
                 // 2 DRAW : Draw the screen with the updated info
@@ -67,8 +71,7 @@ public class GamePanel extends JPanel implements Runnable{
                 drawCount++;
             }
 
-            if(timer >= INT_INTERVAL)
-            {
+            if (timer >= INT_INTERVAL) {
                 System.out.println("FPS :" + drawCount);
                 drawCount = 0;
                 timer = 0;
@@ -77,13 +80,11 @@ public class GamePanel extends JPanel implements Runnable{
     }
 
 
-    public void update()
-    {
+    public void update() {
         player.update();
     }
 
-    public void paintComponent(Graphics g)
-    {
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
 
         Graphics2D g2 = (Graphics2D) g;
@@ -104,5 +105,25 @@ public class GamePanel extends JPanel implements Runnable{
 
     public int getMaxScreenRow() {
         return maxScreenRow;
+    }
+
+    public int getScreenWidth() {
+        return screenWidth;
+    }
+
+    public int getScreenHeight() {
+        return screenHeight;
+    }
+
+    public int getMaxWorldCol() {
+        return maxWorldCol;
+    }
+
+    public int getMaxWorldRow() {
+        return maxWorldRow;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }

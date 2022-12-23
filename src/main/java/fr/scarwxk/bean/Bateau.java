@@ -1,4 +1,5 @@
 package fr.scarwxk.bean;
+
 import java.awt.image.BufferedImage;
 import java.lang.Math;
 
@@ -55,7 +56,7 @@ public class Bateau {
 
     public float distance() {
         if (!this.enMer && this.depart != null && this.arrivee != null)
-            return (float)(Math.sqrt(Math.pow(this.arrivee.retourneX() - this.depart.retourneX(), 2) +
+            return (float) (Math.sqrt(Math.pow(this.arrivee.retourneX() - this.depart.retourneX(), 2) +
                     Math.pow(this.arrivee.retourneY() - this.depart.retourneY(), 2)));
 
         return -1;
@@ -83,5 +84,13 @@ public class Bateau {
 
     public void setSpriteNum(int spriteNum) {
         this.spriteNum = spriteNum;
+    }
+
+    public int getWorldX() {
+        return worldX;
+    }
+
+    public int getWorldY() {
+        return worldY;
     }
 }

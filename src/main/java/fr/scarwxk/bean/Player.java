@@ -10,27 +10,31 @@ import java.io.IOException;
 import java.util.Hashtable;
 import java.util.Objects;
 
-public class Player extends Bateau{
+public class Player extends Bateau {
     GamePanel gp;
     KeyHandler keyH;
-    
+
+    private final int screenX, screenY;
+
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
         this.keyH = keyH;
+
+        this.screenX = gp.getScreenWidth() / 2 - gp.getTileSize() / 2;
+        this.screenY = gp.getScreenHeight() / 2 - gp.getTileSize() / 2;
 
         setDefaultValues();
         getPlayerImage();
     }
 
-    public void setDefaultValues()
-    {
-        this.worldX = 100;
-        this.worldY = 100;
-        this.speed = 4;
-        setDirection("up");
+    public void setDefaultValues() {
+        this.worldX = gp.getTileSize() * 24;
+        this.worldY = gp.getTileSize() * 3;
+        this.speed = 3;
+        setDirection("right");
     }
-    public void getPlayerImage()
-    {
+
+    public void getPlayerImage() {
         try {
             up1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Player/up01.png")));
             up2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Player/up02.png")));
@@ -48,9 +52,7 @@ public class Player extends Bateau{
             right2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Player/right02.png")));
             right3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Player/right03.png")));
             right4 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/Player/right04.png")));
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
@@ -58,33 +60,27 @@ public class Player extends Bateau{
     /**
      * Function update frame
      */
-    public void update()
-    {
-        if(keyH.upPressed)
-        {
+    public void update() {
+        if (keyH.upPressed) {
             setDirection("up");
             this.worldY -= this.speed;
         }
-        if(keyH.downPressed)
-        {
+        if (keyH.downPressed) {
             setDirection("down");
             this.worldY += this.speed;
         }
-        if(keyH.leftPressed)
-        {
+        if (keyH.leftPressed) {
             setDirection("left");
             this.worldX -= this.speed;
         }
-        if(keyH.rightPressed)
-        {
+        if (keyH.rightPressed) {
             setDirection("right");
             this.worldX += this.speed;
         }
 
         setSpriteCounter(getSpriteCounter() + 1);
 
-        if(getSpriteCounter() > 10)
-        {
+        if (getSpriteCounter() > 10) {
             setSpriteNum((getSpriteNum() + 1) % 4);
             setSpriteCounter(0);
         }
@@ -93,11 +89,11 @@ public class Player extends Bateau{
 
     /**
      * Dessine le sprite en fonction de la direction
+     *
      * @param g2 Element graphique en 2D
      */
 
-    public void draw(Graphics2D g2)
-    {
+    public void draw(Graphics2D g2) {
         BufferedImage image = null;
 
         switch (getDirection()) {
@@ -107,12 +103,13 @@ public class Player extends Bateau{
             case "right" -> image = getBufferedImage(right1, right2, right3, right4);
         }
 
-        g2.drawImage(image, worldX, worldY, gp.getTileSize(), gp.getTileSize(), null);
+        g2.drawImage(image, screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
 
     }
 
     /**
      * Renvoie l'image à afficher pour le sprite
+     *
      * @param image1
      * @param image2
      * @param image3
@@ -129,4 +126,14 @@ public class Player extends Bateau{
 
         return spriteDict.get(getSpriteNum());
     }
+
+    public int getScreenX() {
+        return screenX;
+    }
+
+    public int getScreenY() {
+        return screenY;
+    }
+
+
 }
