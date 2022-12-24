@@ -1,25 +1,11 @@
 package fr.scarwxk.bean;
 
-import java.awt.image.BufferedImage;
 import java.lang.Math;
 
-public class Bateau {
+public class Bateau extends Entity {
     private Port depart;
     private Port arrivee;
     private boolean enMer;
-
-    protected int worldX, worldY;
-    protected int speed;
-
-    protected BufferedImage
-            up1, up2, up3, up4,
-            down1, down2, down3, down4,
-            left1, left2, left3, left4,
-            right1, right2, right3, right4;
-    private String direction;
-
-    private int spriteCounter = 0;
-    private int spriteNum = 1;
 
     public Bateau() {
         this.depart = null;
@@ -62,35 +48,5 @@ public class Bateau {
         return -1;
     }
 
-    public String getDirection() {
-        return direction;
-    }
 
-    public void setDirection(String direction) {
-        this.direction = direction;
-    }
-
-    public int getSpriteCounter() {
-        return spriteCounter;
-    }
-
-    public void setSpriteCounter(int spriteCounter) {
-        this.spriteCounter = spriteCounter;
-    }
-
-    public int getSpriteNum() {
-        return spriteNum;
-    }
-
-    public void setSpriteNum(int spriteNum) {
-        this.spriteNum = spriteNum;
-    }
-
-    public int getWorldX() {
-        return worldX;
-    }
-
-    public int getWorldY() {
-        return worldY;
-    }
 }

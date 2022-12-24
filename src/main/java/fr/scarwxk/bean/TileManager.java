@@ -34,6 +34,10 @@ public class TileManager {
 
             tile[1] = new Tile();
             tile[1].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/wood.png"))));
+            tile[1].setCollision(true);
+
+            tile[2] = new Tile();
+            tile[2].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/dirt.png"))));
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -92,9 +96,9 @@ public class TileManager {
             // Draw only tiles around the player, not the entire map
 
             if (worldX + gp.getTileSize() > gp.getPlayer().getWorldX() - gp.getPlayer().getScreenX() &&
-                worldX - gp.getTileSize() < gp.getPlayer().getWorldX() + gp.getPlayer().getScreenX() &&
-                worldY + gp.getTileSize() > gp.getPlayer().getWorldY() - gp.getPlayer().getScreenY() &&
-                worldY - gp.getTileSize() < gp.getPlayer().getWorldY() + gp.getPlayer().getScreenY()
+                    worldX - gp.getTileSize() < gp.getPlayer().getWorldX() + gp.getPlayer().getScreenX() &&
+                    worldY + gp.getTileSize() > gp.getPlayer().getWorldY() - gp.getPlayer().getScreenY() &&
+                    worldY - gp.getTileSize() < gp.getPlayer().getWorldY() + gp.getPlayer().getScreenY()
             ) {
                 g2.drawImage(tile[tileNum].getImage(), screenX, screenY, gp.getTileSize(), gp.getTileSize(), null);
             }
@@ -108,4 +112,11 @@ public class TileManager {
 
     }
 
+    public int[][] getMapTileNum() {
+        return mapTileNum;
+    }
+
+    public Tile[] getTile() {
+        return tile;
+    }
 }

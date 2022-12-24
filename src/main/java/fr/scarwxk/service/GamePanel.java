@@ -29,6 +29,7 @@ public class GamePanel extends JPanel implements Runnable {
     private final KeyHandler keyH = new KeyHandler();
     private Thread gameThread;
 
+    private CollisionChecker collisionChecker = new CollisionChecker(this);
     private final Player player = new Player(this, keyH);
 
     public GamePanel() {
@@ -125,5 +126,13 @@ public class GamePanel extends JPanel implements Runnable {
 
     public Player getPlayer() {
         return player;
+    }
+
+    public CollisionChecker getCollisionChecker() {
+        return collisionChecker;
+    }
+
+    public TileManager getTileM() {
+        return tileM;
     }
 }

@@ -23,6 +23,8 @@ public class Player extends Bateau {
         this.screenX = gp.getScreenWidth() / 2 - gp.getTileSize() / 2;
         this.screenY = gp.getScreenHeight() / 2 - gp.getTileSize() / 2;
 
+        this.setSolidArea(new Rectangle(0, 0, gp.getTileSize(), gp.getTileSize()));
+
         setDefaultValues();
         getPlayerImage();
     }
@@ -63,20 +65,33 @@ public class Player extends Bateau {
     public void update() {
         if (keyH.upPressed) {
             setDirection("up");
-            this.worldY -= this.speed;
         }
         if (keyH.downPressed) {
             setDirection("down");
-            this.worldY += this.speed;
         }
         if (keyH.leftPressed) {
             setDirection("left");
-            this.worldX -= this.speed;
         }
         if (keyH.rightPressed) {
             setDirection("right");
-            this.worldX += this.speed;
         }
+
+        // CHECK TILE COLLISION
+        this.setCollisionOn(false);
+        gp.getCollisionChecker().checkTile(this);
+
+        // IF !COLLISION, CAN MOVE
+
+        if (!isCollisionOn() && (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed)) {
+            switch (getDirection())
+            {
+                case "up" -> this.worldY -= this.speed;
+                case "down" -> this.worldY += this.speed;
+                case "left" -> this.worldX -= this.speed;
+                case "right" -> this.worldX += this.speed;
+            }
+        }
+
 
         setSpriteCounter(getSpriteCounter() + 1);
 
