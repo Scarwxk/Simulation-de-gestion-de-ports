@@ -10,3 +10,8 @@ possède et combien de quais sont occupés à tout instant.
 Lorsqu’un bateau cherche à accoster, il demande l’autorisation au port correspondant. 
 S’il y a un quai disponible, le port réserve le quai grâce au gestionnaire de quais et le bateau y 
 accoste. Sinon, aucun quai n’est réservé et le bateau reste en mer.
+
+
+UPDATE :
+
+Une fois la structure des objets réalisée, le sujet est libre. De ce fait j'ai décidé de développer un jeu en 2D maritime.
