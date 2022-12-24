@@ -2,6 +2,7 @@ package fr.scarwxk.service;
 
 import fr.scarwxk.bean.Player;
 import fr.scarwxk.bean.TileManager;
+import fr.scarwxk.object.SuperObject;
 
 import javax.swing.*;
 import java.awt.*;
@@ -29,8 +30,9 @@ public class GamePanel extends JPanel implements Runnable {
     private final KeyHandler keyH = new KeyHandler();
     private Thread gameThread;
 
-    private CollisionChecker collisionChecker = new CollisionChecker(this);
+    private final CollisionChecker collisionChecker = new CollisionChecker(this);
     private final Player player = new Player(this, keyH);
+    private final SuperObject[] obj = new SuperObject[10];
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
