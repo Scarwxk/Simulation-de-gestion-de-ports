@@ -20,6 +20,8 @@ public class Entity {
 
     private Rectangle solidArea;
 
+    private int solidAreaDefaultX, solidAreaDefaultY;
+
     private boolean collisionOn = false;
 
     public String getDirection() {
@@ -72,5 +74,21 @@ public class Entity {
 
     public int getSpeed() {
         return speed;
+    }
+
+    public int getSolidAreaDefaultX() {
+        return solidAreaDefaultX;
+    }
+
+    public void setSolidAreaDefaultX(int solidAreaDefaultX) {
+        this.solidAreaDefaultX = solidAreaDefaultX;
+    }
+
+    public int getSolidAreaDefaultY() {
+        return solidAreaDefaultY;
+    }
+
+    public void setSolidAreaDefaultY(int solidAreaDefaultY) {
+        this.solidAreaDefaultY = solidAreaDefaultY;
     }
 }

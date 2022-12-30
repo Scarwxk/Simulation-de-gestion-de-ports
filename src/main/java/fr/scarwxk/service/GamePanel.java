@@ -31,6 +31,7 @@ public class GamePanel extends JPanel implements Runnable {
     private Thread gameThread;
 
     private final CollisionChecker collisionChecker = new CollisionChecker(this);
+    private final AssetSetter aSetter = new AssetSetter(this);
     private final Player player = new Player(this, keyH);
     private final SuperObject[] obj = new SuperObject[10];
 
@@ -40,6 +41,11 @@ public class GamePanel extends JPanel implements Runnable {
         this.setDoubleBuffered(true);
         this.addKeyListener(keyH);
         this.setFocusable(true);
+    }
+
+    public void setupGame()
+    {
+        aSetter.setObject();
     }
 
     public void startGameThread() {
@@ -92,8 +98,18 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2 = (Graphics2D) g;
 
+        // Tile
         tileM.draw(g2);
+        // Objects
+        for (SuperObject superObject : obj) {
+            if (superObject != null) {
+                superObject.draw(g2, this);
+            }
+        }
+
+        // Player
         player.draw(g2);
+
 
         g2.dispose();
     }
@@ -136,5 +152,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     public TileManager getTileM() {
         return tileM;
+    }
+
+    public SuperObject[] getObj() {
+        return obj;
     }
 }

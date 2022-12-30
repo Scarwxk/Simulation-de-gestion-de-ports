@@ -27,6 +27,9 @@ public class TileManager {
         loadMap("/maps/world01.txt");
     }
 
+    /**
+     * Set tile images and collisions
+     */
     public void getTileImage() {
         try {
             tile[0] = new Tile();

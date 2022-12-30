@@ -13,6 +13,7 @@ import java.util.Objects;
 public class Player extends Bateau {
     GamePanel gp;
     KeyHandler keyH;
+    int hasKey = 0;
 
     private final int screenX, screenY;
 
@@ -24,6 +25,8 @@ public class Player extends Bateau {
         this.screenY = gp.getScreenHeight() / 2 - gp.getTileSize() / 2;
 
         this.setSolidArea(new Rectangle(0, 0, gp.getTileSize(), gp.getTileSize()));
+        this.setSolidAreaDefaultX(this.getSolidArea().x);
+        this.setSolidAreaDefaultY(this.getSolidArea().y);
 
         setDefaultValues();
         getPlayerImage();
@@ -80,6 +83,10 @@ public class Player extends Bateau {
         this.setCollisionOn(false);
         gp.getCollisionChecker().checkTile(this);
 
+        // CHECK OBJECT COLLISION
+        int objIndex = gp.getCollisionChecker().checkObject(this, true);
+        pickUpObject(objIndex);
+
         // IF !COLLISION, CAN MOVE
 
         if (!isCollisionOn() && (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed)) {
@@ -100,6 +107,33 @@ public class Player extends Bateau {
             setSpriteCounter(0);
         }
 
+    }
+
+    private void pickUpObject(int i)
+    {
+        if (i != 999)
+        {
+            String objectName = gp.getObj()[i].getName();
+
+            switch (objectName)
+            {
+                case "Key":
+                    hasKey++;
+                    gp.getObj()[i] = null;
+                    break;
+                case "Door":
+                    if (hasKey > 0)
+                    {
+                        gp.getObj()[i] = null;
+                        hasKey--;
+                    }
+                    break;
+                case "Boots":
+                    this.speed += 2;
+                    gp.getObj()[i] = null;
+                    break;
+            }
+        }
     }
 
     /**
@@ -125,10 +159,10 @@ public class Player extends Bateau {
     /**
      * Renvoie l'image à afficher pour le sprite
      *
-     * @param image1
-     * @param image2
-     * @param image3
-     * @param image4
+     * @param image1 Image n*1 du sprite
+     * @param image2 Image n*2 du sprite
+     * @param image3 Image n*3 du sprite
+     * @param image4 Image n*4 du sprite
      * @return BufferedImage Sprite image
      */
     private BufferedImage getBufferedImage(BufferedImage image1, BufferedImage image2, BufferedImage image3, BufferedImage image4) {
