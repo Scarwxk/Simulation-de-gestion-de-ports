@@ -1,7 +1,5 @@
 package fr.scarwxk.bean;
 
-import java.lang.Math;
-
 public class Bateau extends Entity {
     private Port depart;
     private Port arrivee;

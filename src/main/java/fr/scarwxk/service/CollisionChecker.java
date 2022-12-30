@@ -13,6 +13,7 @@ public class CollisionChecker {
 
     /**
      * Check all moves(next tile)
+     *
      * @param entity the entity that moves
      */
     public void checkTile(Entity entity) {
@@ -67,18 +68,16 @@ public class CollisionChecker {
 
     /**
      * Check the collision between entities/objects
+     *
      * @param entity The entity that moves
      * @param player Boolean indicates if player or not
      * @return index of the object
      */
-    public int checkObject(Entity entity, boolean player)
-    {
+    public int checkObject(Entity entity, boolean player) {
         int index = 999;
 
-        for(int i = 0; i < gp.getObj().length; i++)
-        {
-            if(gp.getObj()[i] != null)
-            {
+        for (int i = 0; i < gp.getObj().length; i++) {
+            if (gp.getObj()[i] != null) {
                 // Get entity solid position
                 entity.getSolidArea().x = entity.getWorldX() + entity.getSolidArea().x;
                 entity.getSolidArea().y = entity.getWorldY() + entity.getSolidArea().y;
@@ -91,12 +90,10 @@ public class CollisionChecker {
                     case "up" -> {
                         entity.getSolidArea().y -= entity.getSpeed();
                         if (entity.getSolidArea().intersects(gp.getObj()[i].getSolidArea())) {
-                            if(gp.getObj()[i].isCollision())
-                            {
+                            if (gp.getObj()[i].isCollision()) {
                                 entity.setCollisionOn(true);
                             }
-                            if(player)
-                            {
+                            if (player) {
                                 index = i;
                             }
                         }
@@ -104,12 +101,10 @@ public class CollisionChecker {
                     case "down" -> {
                         entity.getSolidArea().y += entity.getSpeed();
                         if (entity.getSolidArea().intersects(gp.getObj()[i].getSolidArea())) {
-                            if(gp.getObj()[i].isCollision())
-                            {
+                            if (gp.getObj()[i].isCollision()) {
                                 entity.setCollisionOn(true);
                             }
-                            if(player)
-                            {
+                            if (player) {
                                 index = i;
                             }
                         }
@@ -117,12 +112,10 @@ public class CollisionChecker {
                     case "left" -> {
                         entity.getSolidArea().x -= entity.getSpeed();
                         if (entity.getSolidArea().intersects(gp.getObj()[i].getSolidArea())) {
-                            if(gp.getObj()[i].isCollision())
-                            {
+                            if (gp.getObj()[i].isCollision()) {
                                 entity.setCollisionOn(true);
                             }
-                            if(player)
-                            {
+                            if (player) {
                                 index = i;
                             }
                         }
@@ -130,12 +123,10 @@ public class CollisionChecker {
                     case "right" -> {
                         entity.getSolidArea().x += entity.getSpeed();
                         if (entity.getSolidArea().intersects(gp.getObj()[i].getSolidArea())) {
-                            if(gp.getObj()[i].isCollision())
-                            {
+                            if (gp.getObj()[i].isCollision()) {
                                 entity.setCollisionOn(true);
                             }
-                            if(player)
-                            {
+                            if (player) {
                                 index = i;
                             }
                         }

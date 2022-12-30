@@ -2,19 +2,17 @@ package fr.scarwxk.object;
 
 import fr.scarwxk.service.GamePanel;
 
-import java.awt.Rectangle;
-import java.awt.Graphics2D;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 
 public class SuperObject {
+    private final Rectangle solidArea = new Rectangle(0, 0, 48, 48);
+    public int solidAreaDefaultX = 0;
+    public int solidAreaDefaultY = 0;
     private BufferedImage image;
     private String name;
     private boolean collision = false;
     private int worldX, worldY;
-    private final Rectangle solidArea = new Rectangle(0,0,48,48);
-    public int solidAreaDefaultX = 0;
-    public int solidAreaDefaultY = 0;
-
 
     public BufferedImage getImage() {
         return image;
@@ -56,8 +54,7 @@ public class SuperObject {
         this.worldY = worldY;
     }
 
-    public void draw(Graphics2D g2, GamePanel gp)
-    {
+    public void draw(Graphics2D g2, GamePanel gp) {
         int screenX = worldX - gp.getPlayer().getWorldX() + gp.getPlayer().getScreenX();
         int screenY = worldY - gp.getPlayer().getWorldY() + gp.getPlayer().getScreenY();
 

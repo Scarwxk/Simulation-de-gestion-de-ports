@@ -17,8 +17,7 @@ public class AssetSetter {
     /**
      * Function set object on map
      */
-    public void setObject()
-    {
+    public void setObject() {
         gp.getObj()[0] = new Key();
         gp.getObj()[0].setWorldX(30 * gp.getTileSize());
         gp.getObj()[0].setWorldY(3 * gp.getTileSize());

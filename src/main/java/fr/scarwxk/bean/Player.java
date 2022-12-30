@@ -11,11 +11,10 @@ import java.util.Hashtable;
 import java.util.Objects;
 
 public class Player extends Bateau {
+    private final int screenX, screenY;
     GamePanel gp;
     KeyHandler keyH;
     int hasKey = 0;
-
-    private final int screenX, screenY;
 
     public Player(GamePanel gp, KeyHandler keyH) {
         this.gp = gp;
@@ -90,8 +89,7 @@ public class Player extends Bateau {
         // IF !COLLISION, CAN MOVE
 
         if (!isCollisionOn() && (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed)) {
-            switch (getDirection())
-            {
+            switch (getDirection()) {
                 case "up" -> this.worldY -= this.speed;
                 case "down" -> this.worldY += this.speed;
                 case "left" -> this.worldX -= this.speed;
@@ -109,29 +107,41 @@ public class Player extends Bateau {
 
     }
 
-    private void pickUpObject(int i)
-    {
-        if (i != 999)
-        {
+    private void pickUpObject(int i) {
+        if (i != 999) {
             String objectName = gp.getObj()[i].getName();
 
             switch (objectName) {
                 case "Key" -> {
+                    // Key sound
                     gp.playSoundEffect(1);
                     hasKey++;
                     gp.getObj()[i] = null;
+                    gp.getUi().showMessage("Clé obtenue !");
                 }
                 case "Door" -> {
-                    gp.playSoundEffect(3);
                     if (hasKey > 0) {
+                        // Door unlocked sound
+                        gp.playSoundEffect(3);
                         gp.getObj()[i] = null;
                         hasKey--;
+                        gp.getUi().showMessage("Tu as ouvert la porte !");
+                    } else {
+                        gp.getUi().showMessage("Il te manque une clé ! :(");
                     }
                 }
                 case "Boots" -> {
+                    // Power up sound
                     gp.playSoundEffect(2);
                     this.speed += 2;
                     gp.getObj()[i] = null;
+                    gp.getUi().showMessage("Speed UP !");
+                }
+                case "Chest" -> {
+                    gp.getUi().setGameFinished(true);
+                    gp.stopMusic();
+                    // Game finished sound
+                    gp.playSoundEffect(4);
                 }
             }
         }
@@ -185,5 +195,7 @@ public class Player extends Bateau {
         return screenY;
     }
 
-
+    public int getHasKey() {
+        return hasKey;
+    }
 }

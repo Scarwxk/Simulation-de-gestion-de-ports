@@ -4,14 +4,12 @@ import javax.imageio.ImageIO;
 import java.io.IOException;
 import java.util.Objects;
 
-public class Door extends SuperObject{
+public class Door extends SuperObject {
     public Door() {
         this.setName("Door");
         try {
             this.setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/objects/door.png"))));
-        }
-        catch (IOException e)
-        {
+        } catch (IOException e) {
             e.printStackTrace();
         }
 

@@ -22,34 +22,30 @@ public class Sound {
 
     /**
      * Open audio format in java
+     *
      * @param i index of sound url
      */
-    public void setFile(int i)
-    {
-        try{
+    public void setFile(int i) {
+        try {
 
             AudioInputStream ais = AudioSystem.getAudioInputStream(soundUrl[i]);
             clip = AudioSystem.getClip();
             clip.open(ais);
 
-        }catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void play()
-    {
+    public void play() {
         clip.start();
     }
 
-    public void loop()
-    {
+    public void loop() {
         clip.loop(Clip.LOOP_CONTINUOUSLY);
     }
 
-    public void stop()
-    {
+    public void stop() {
         clip.stop();
     }
 
