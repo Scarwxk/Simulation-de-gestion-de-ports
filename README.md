@@ -1,4 +1,4 @@
-# Simulation-de-gestion-de-ports
+# Jeu 2D Aventure Navale
 Programme à réaliser en Java lors de mes études, permettant une simulation d'un logiciel de gestion de ports.
 
 
