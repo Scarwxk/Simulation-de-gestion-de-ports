@@ -115,23 +115,24 @@ public class Player extends Bateau {
         {
             String objectName = gp.getObj()[i].getName();
 
-            switch (objectName)
-            {
-                case "Key":
+            switch (objectName) {
+                case "Key" -> {
+                    gp.playSoundEffect(1);
                     hasKey++;
                     gp.getObj()[i] = null;
-                    break;
-                case "Door":
-                    if (hasKey > 0)
-                    {
+                }
+                case "Door" -> {
+                    gp.playSoundEffect(3);
+                    if (hasKey > 0) {
                         gp.getObj()[i] = null;
                         hasKey--;
                     }
-                    break;
-                case "Boots":
+                }
+                case "Boots" -> {
+                    gp.playSoundEffect(2);
                     this.speed += 2;
                     gp.getObj()[i] = null;
-                    break;
+                }
             }
         }
     }

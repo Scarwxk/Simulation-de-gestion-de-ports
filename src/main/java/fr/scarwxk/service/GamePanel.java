@@ -21,17 +21,19 @@ public class GamePanel extends JPanel implements Runnable {
 
     private final static int maxWorldCol = 50;
     private final static int maxWorldRow = 50;
-    private final static int worldWidth = tileSize * maxWorldCol;
-    private final static int worldHeight = tileSize * maxWorldRow;
 
     private final static int FPS = 60;
-    private final static int INT_INTERVAL = 1000000000;
+    private final static double INT_INTERVAL = 1000000000;
+
+    // SYSTEM
     private final TileManager tileM = new TileManager(this);
     private final KeyHandler keyH = new KeyHandler();
+    private final Sound sound = new Sound();
     private Thread gameThread;
-
     private final CollisionChecker collisionChecker = new CollisionChecker(this);
     private final AssetSetter aSetter = new AssetSetter(this);
+
+    // ENTITY AND OBJECT
     private final Player player = new Player(this, keyH);
     private final SuperObject[] obj = new SuperObject[10];
 
@@ -46,6 +48,9 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame()
     {
         aSetter.setObject();
+
+        // Play the game music (index 0)
+        playMusic(0);
     }
 
     public void startGameThread() {
@@ -114,16 +119,26 @@ public class GamePanel extends JPanel implements Runnable {
         g2.dispose();
     }
 
+    public void playMusic(int i)
+    {
+        sound.setFile(i);
+        sound.play();
+        sound.loop();
+    }
+
+    public void stopMusic()
+    {
+        sound.stop();
+    }
+
+    public void playSoundEffect(int i)
+    {
+        sound.setFile(i);
+        sound.play();
+    }
+
     public int getTileSize() {
         return tileSize;
-    }
-
-    public int getMaxScreenCol() {
-        return maxScreenCol;
-    }
-
-    public int getMaxScreenRow() {
-        return maxScreenRow;
     }
 
     public int getScreenWidth() {
