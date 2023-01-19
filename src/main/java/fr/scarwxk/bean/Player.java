@@ -14,9 +14,10 @@ public class Player extends Bateau {
     private final int screenX, screenY;
     GamePanel gp;
     KeyHandler keyH;
-    int hasKey = 0;
 
     public Player(GamePanel gp, KeyHandler keyH) {
+        super(gp);
+
         this.gp = gp;
         this.keyH = keyH;
 
@@ -86,6 +87,9 @@ public class Player extends Bateau {
         int objIndex = gp.getCollisionChecker().checkObject(this, true);
         pickUpObject(objIndex);
 
+        // CHECK NPC COLLISION
+        int npcIndex = gp.getCollisionChecker().checkEntity(this, gp.getNpc());
+        interactNPC(npcIndex);
         // IF !COLLISION, CAN MOVE
 
         if (!isCollisionOn() && (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed)) {
@@ -109,41 +113,13 @@ public class Player extends Bateau {
 
     private void pickUpObject(int i) {
         if (i != 999) {
-            String objectName = gp.getObj()[i].getName();
 
-            switch (objectName) {
-                case "Key" -> {
-                    // Key sound
-                    gp.playSoundEffect(1);
-                    hasKey++;
-                    gp.getObj()[i] = null;
-                    gp.getUi().showMessage("Clé obtenue !");
-                }
-                case "Door" -> {
-                    if (hasKey > 0) {
-                        // Door unlocked sound
-                        gp.playSoundEffect(3);
-                        gp.getObj()[i] = null;
-                        hasKey--;
-                        gp.getUi().showMessage("Tu as ouvert la porte !");
-                    } else {
-                        gp.getUi().showMessage("Il te manque une clé ! :(");
-                    }
-                }
-                case "Boots" -> {
-                    // Power up sound
-                    gp.playSoundEffect(2);
-                    this.speed += 2;
-                    gp.getObj()[i] = null;
-                    gp.getUi().showMessage("Speed UP !");
-                }
-                case "Chest" -> {
-                    gp.getUi().setGameFinished(true);
-                    gp.stopMusic();
-                    // Game finished sound
-                    gp.playSoundEffect(4);
-                }
-            }
+        }
+    }
+
+    public void interactNPC(int i) {
+        if (i != 999) {
+            System.out.println("Hitting npc");
         }
     }
 
@@ -193,9 +169,5 @@ public class Player extends Bateau {
 
     public int getScreenY() {
         return screenY;
-    }
-
-    public int getHasKey() {
-        return hasKey;
     }
 }

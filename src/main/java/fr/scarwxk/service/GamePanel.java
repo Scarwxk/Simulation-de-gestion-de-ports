@@ -1,5 +1,6 @@
 package fr.scarwxk.service;
 
+import fr.scarwxk.bean.Entity;
 import fr.scarwxk.bean.Player;
 import fr.scarwxk.bean.TileManager;
 import fr.scarwxk.object.SuperObject;
@@ -26,16 +27,23 @@ public class GamePanel extends JPanel implements Runnable {
 
     // SYSTEM
     private final TileManager tileM = new TileManager(this);
-    private final KeyHandler keyH = new KeyHandler();
+    private final KeyHandler keyH = new KeyHandler(this);
     private final Sound music = new Sound();
-    private final Sound soundeffect = new Sound();
+    private final Sound soundEffect = new Sound();
     private final CollisionChecker collisionChecker = new CollisionChecker(this);
     private final AssetSetter aSetter = new AssetSetter(this);
     private final UI ui = new UI(this);
     // ENTITY AND OBJECT
     private final Player player = new Player(this, keyH);
     private final SuperObject[] obj = new SuperObject[10];
+    private final Entity[] npc = new Entity[5];
     private Thread gameThread;
+
+    // GAME STATE
+    private int gameState;
+    private final int playState = 1;
+    private final int pauseState = 2;
+    private final int dialogueState = 3;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -47,9 +55,10 @@ public class GamePanel extends JPanel implements Runnable {
 
     public void setupGame() {
         aSetter.setObject();
-
+        aSetter.setNpc();
         // Play the game music (index 0)
         playMusic(0);
+        gameState = playState;
     }
 
     public void startGameThread() {
@@ -94,7 +103,21 @@ public class GamePanel extends JPanel implements Runnable {
 
 
     public void update() {
-        player.update();
+        if (gameState == playState) {
+            // PLAYER
+            player.update();
+            // NPC
+            for (Entity entity : npc) {
+                if (entity != null) {
+                    entity.update();
+                }
+
+            }
+        }
+        if (gameState == pauseState) {
+
+        }
+
     }
 
     public void paintComponent(Graphics g) {
@@ -108,6 +131,13 @@ public class GamePanel extends JPanel implements Runnable {
         for (SuperObject superObject : obj) {
             if (superObject != null) {
                 superObject.draw(g2, this);
+            }
+        }
+
+        // NPC
+        for (Entity entity : npc) {
+            if (entity != null) {
+                entity.draw(g2);
             }
         }
 
@@ -131,8 +161,8 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void playSoundEffect(int i) {
-        soundeffect.setFile(i);
-        soundeffect.play();
+        soundEffect.setFile(i);
+        soundEffect.play();
     }
 
     public int getTileSize() {
@@ -171,11 +201,31 @@ public class GamePanel extends JPanel implements Runnable {
         return obj;
     }
 
+    public Entity[] getNpc() {
+        return npc;
+    }
+
     public UI getUi() {
         return ui;
     }
 
     public void setGameThread(Thread gameThread) {
         this.gameThread = gameThread;
+    }
+
+    public int getGameState() {
+        return gameState;
+    }
+
+    public void setGameState(int gameState) {
+        this.gameState = gameState;
+    }
+
+    public int getPlayState() {
+        return playState;
+    }
+
+    public int getPauseState() {
+        return pauseState;
     }
 }

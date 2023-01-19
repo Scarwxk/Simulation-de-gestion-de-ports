@@ -1,9 +1,6 @@
 package fr.scarwxk.service;
 
-import fr.scarwxk.object.Boots;
-import fr.scarwxk.object.Chest;
-import fr.scarwxk.object.Door;
-import fr.scarwxk.object.Key;
+import fr.scarwxk.bean.NPC_OldMan;
 
 public class AssetSetter {
 
@@ -18,20 +15,11 @@ public class AssetSetter {
      * Function set object on map
      */
     public void setObject() {
-        gp.getObj()[0] = new Key();
-        gp.getObj()[0].setWorldX(30 * gp.getTileSize());
-        gp.getObj()[0].setWorldY(3 * gp.getTileSize());
+    }
 
-        gp.getObj()[1] = new Door();
-        gp.getObj()[1].setWorldX(31 * gp.getTileSize());
-        gp.getObj()[1].setWorldY(3 * gp.getTileSize());
-
-        gp.getObj()[2] = new Chest();
-        gp.getObj()[2].setWorldX(32 * gp.getTileSize());
-        gp.getObj()[2].setWorldY(3 * gp.getTileSize());
-
-        gp.getObj()[3] = new Boots();
-        gp.getObj()[3].setWorldX(25 * gp.getTileSize());
-        gp.getObj()[3].setWorldY(5 * gp.getTileSize());
+    public void setNpc() {
+        gp.getNpc()[0] = new NPC_OldMan(gp);
+        gp.getNpc()[0].setWorldX(48 * gp.getTileSize());
+        gp.getNpc()[0].setWorldY(2 * gp.getTileSize());
     }
 }

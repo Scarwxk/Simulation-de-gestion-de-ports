@@ -1,17 +1,21 @@
 package fr.scarwxk.bean;
 
+import fr.scarwxk.service.GamePanel;
+
 public class Bateau extends Entity {
     private Port depart;
     private Port arrivee;
     private boolean enMer;
 
-    public Bateau() {
+    public Bateau(GamePanel gp) {
+        super(gp);
         this.depart = null;
         this.arrivee = null;
         this.enMer = true;
     }
 
-    public Bateau(Port position) {
+    public Bateau(Port position, GamePanel gp) {
+        super(gp);
         this.depart = null;
         if (position.ajouterBateau()) {
             this.arrivee = position;
