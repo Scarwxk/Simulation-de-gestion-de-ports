@@ -30,12 +30,33 @@ public class Entity {
 
     protected int actionLockCounter = 0;
 
+    public String[] dialogues = new String[20];
+
+    public int dialogueIndex = 0;
+
     public Entity(GamePanel gp) {
         this.gp = gp;
     }
 
     public void setAction() {
 
+    }
+
+    public void speak()
+    {
+        if(dialogues[dialogueIndex] == null)
+        {
+            dialogueIndex = 0;
+        }
+        gp.getUi().setCurrentDialogue(dialogues[dialogueIndex]);
+        dialogueIndex++;
+
+        switch (gp.getPlayer().getDirection()) {
+            case "up" -> setDirection("down");
+            case "down" -> setDirection("up");
+            case "left" -> setDirection("right");
+            case "right" -> setDirection("left");
+        }
     }
 
     public void update() {

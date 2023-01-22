@@ -19,7 +19,7 @@ public class AssetSetter {
 
     public void setNpc() {
         gp.getNpc()[0] = new NPC_OldMan(gp);
-        gp.getNpc()[0].setWorldX(48 * gp.getTileSize());
-        gp.getNpc()[0].setWorldY(2 * gp.getTileSize());
+        gp.getNpc()[0].setWorldX(30 * gp.getTileSize());
+        gp.getNpc()[0].setWorldY(10 * gp.getTileSize());
     }
 }

@@ -15,6 +15,7 @@ public class NPC_OldMan extends Entity {
         speed = 1;
 
         getImage();
+        setDialogue();
     }
 
     private void getImage() {
@@ -62,5 +63,16 @@ public class NPC_OldMan extends Entity {
 
             actionLockCounter = 0;
         }
+    }
+
+    public void setDialogue()
+    {
+        dialogues[0] = "Salut à toi voyageur.";
+        dialogues[1] = "Tu es venu pour t'emparer du trésor ?\nCommence par accoster sur l'île";
+    }
+
+    public void speak()
+    {
+        super.speak();
     }
 }

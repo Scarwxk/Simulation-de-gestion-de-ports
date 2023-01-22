@@ -34,7 +34,7 @@ public class Player extends Bateau {
 
     public void setDefaultValues() {
         this.worldX = gp.getTileSize() * 24;
-        this.worldY = gp.getTileSize() * 3;
+        this.worldY = gp.getTileSize() * 8;
         this.speed = 3;
         setDirection("right");
     }
@@ -119,8 +119,13 @@ public class Player extends Bateau {
 
     public void interactNPC(int i) {
         if (i != 999) {
-            System.out.println("Hitting npc");
+
+            if(gp.getKeyH().enterPressed) {
+                gp.setGameState(gp.getDialogueState());
+                gp.getNpc()[i].speak();
+            }
         }
+        gp.getKeyH().enterPressed = false;
     }
 
     /**

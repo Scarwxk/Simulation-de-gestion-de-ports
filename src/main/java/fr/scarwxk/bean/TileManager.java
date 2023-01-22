@@ -41,6 +41,7 @@ public class TileManager {
 
             tile[2] = new Tile();
             tile[2].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/dirt.png"))));
+            tile[2].setCollision(true);
 
         } catch (IOException e) {
             e.printStackTrace();

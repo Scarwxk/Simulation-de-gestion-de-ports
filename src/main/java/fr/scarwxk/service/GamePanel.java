@@ -228,4 +228,14 @@ public class GamePanel extends JPanel implements Runnable {
     public int getPauseState() {
         return pauseState;
     }
+
+    public int getDialogueState() {
+        return dialogueState;
+    }
+
+    public KeyHandler getKeyH() {
+        return keyH;
+    }
+
+
 }
