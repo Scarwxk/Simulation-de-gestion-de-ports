@@ -21,8 +21,7 @@ public class KeyHandler implements KeyListener {
         int code = e.getKeyCode();
 
         // PLAY STATE
-        if(gp.getGameState() == gp.getGameState())
-        {
+        if (gp.getGameState() == gp.getPlayState()) {
 
             switch (code) {
                 case KeyEvent.VK_Z, KeyEvent.VK_UP -> upPressed = true;
@@ -35,18 +34,14 @@ public class KeyHandler implements KeyListener {
         }
 
         // PAUSE STATE
-        if(gp.getGameState() == gp.getPauseState())
-        {
-            if (code == KeyEvent.VK_P)
-            {
+        if (gp.getGameState() == gp.getPauseState()) {
+            if (code == KeyEvent.VK_P) {
                 gp.setGameState(gp.getPlayState());
             }
         }
         // DIALOGUE STATE
-        if(gp.getGameState() == gp.getDialogueState())
-        {
-            if (code == KeyEvent.VK_ENTER)
-            {
+        if (gp.getGameState() == gp.getDialogueState()) {
+            if (code == KeyEvent.VK_ENTER) {
                 gp.setGameState(gp.getPlayState());
             }
         }
