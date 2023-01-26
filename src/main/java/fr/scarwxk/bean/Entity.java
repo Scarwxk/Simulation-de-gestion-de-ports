@@ -42,10 +42,8 @@ public class Entity {
 
     }
 
-    public void speak()
-    {
-        if(dialogues[dialogueIndex] == null)
-        {
+    public void speak() {
+        if (dialogues[dialogueIndex] == null) {
             dialogueIndex = 0;
         }
         gp.getUi().setCurrentDialogue(dialogues[dialogueIndex]);
@@ -196,5 +194,7 @@ public class Entity {
         return spriteDict.get(getSpriteNum());
     }
 
-
+    public BufferedImage getRight1() {
+        return right1;
+    }
 }

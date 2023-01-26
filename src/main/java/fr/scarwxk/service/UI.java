@@ -10,14 +10,15 @@ public class UI {
     private final GamePanel gp;
     private Graphics2D g2;
     private final Font gameFont;
+    private int commandNum = 0;
 
 
-    private boolean messageOn = false;
+    /*private boolean messageOn = false;
     private String message = "";
     private final int messageCounter = 0;
 
     private boolean gameFinished = false;
-
+*/
     public String currentDialogue = "";
 
     public UI(GamePanel gp) {
@@ -31,16 +32,21 @@ public class UI {
 
     }
 
-    public void showMessage(String text) {
+    /*public void showMessage(String text) {
         message = text;
         messageOn = true;
-    }
+    }*/
 
     public void draw(Graphics2D g2) {
         this.g2 = g2;
 
         g2.setFont(gameFont);
         g2.setColor(Color.white);
+
+        // TITLE STATE
+        if (gp.getGameState() == gp.getTitleState()) {
+            drawTitleScreen();
+        }
 
         // PLAY STATE
         if (gp.getGameState() == gp.getPlayState()) {
@@ -51,9 +57,69 @@ public class UI {
             drawPauseScreen();
         }
         // DIALOGUE STATE
-        if(gp.getGameState() == gp.getDialogueState())
-        {
+        if (gp.getGameState() == gp.getDialogueState()) {
             drawDialogueScreen();
+        }
+    }
+
+    private void drawTitleScreen() {
+        // BACKGROUND
+        g2.setColor(new Color(86, 125, 70));
+        g2.fillRect(0, 0, gp.getScreenWidth(), gp.getScreenHeight());
+
+        // TITLE NAME
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 96F));
+        String text = "L'aventure du potit bateau";
+        int x = getXforCenteredText(text);
+        int y = gp.getTileSize() * 3;
+
+        // SHADOW
+        g2.setColor(Color.BLACK);
+        g2.drawString(text, x + 5, y + 5);
+
+        // MAIN COLOR
+        g2.setColor(Color.white);
+        g2.drawString(text, x, y);
+
+        // PLAYER IMAGE
+        x = gp.getScreenWidth() / 2 - gp.getTileSize();
+        y += gp.getTileSize() * 2;
+        g2.drawImage(gp.getPlayer().getRight1(), x, y, gp.getTileSize() * 2, gp.getTileSize() * 2, null);
+
+        // MENU
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 48F));
+
+        g2.setColor(Color.BLACK);
+        text = "NOUVELLE PARTIE";
+        x = getXforCenteredText(text);
+        y += gp.getTileSize() * 4;
+        g2.drawString(text, x, y);
+        g2.setColor(Color.WHITE);
+        g2.drawString(text, x + 3, y + 3);
+        if (commandNum == 0) {
+            g2.drawImage(gp.getPlayer().getRight1(), x - gp.getTileSize(), y - gp.getTileSize() / 4 * 3, gp.getTileSize(), gp.getTileSize(), null);
+        }
+
+        g2.setColor(Color.BLACK);
+        text = "CHARGER UNE PARTIE";
+        x = getXforCenteredText(text);
+        y += gp.getTileSize();
+        g2.drawString(text, x, y);
+        g2.setColor(Color.WHITE);
+        g2.drawString(text, x + 3, y + 3);
+        if (commandNum == 1) {
+            g2.drawImage(gp.getPlayer().getRight1(), x - gp.getTileSize(), y - gp.getTileSize() / 4 * 3, gp.getTileSize(), gp.getTileSize(), null);
+        }
+
+        g2.setColor(Color.BLACK);
+        text = "QUITTER";
+        x = getXforCenteredText(text);
+        y += gp.getTileSize();
+        g2.drawString(text, x, y);
+        g2.setColor(Color.WHITE);
+        g2.drawString(text, x + 3, y + 3);
+        if (commandNum == 2) {
+            g2.drawImage(gp.getPlayer().getRight1(), x - gp.getTileSize(), y - gp.getTileSize() / 4 * 3, gp.getTileSize(), gp.getTileSize(), null);
         }
     }
 
@@ -71,8 +137,7 @@ public class UI {
         x += gp.getTileSize();
         y += gp.getTileSize();
 
-        for(String line : currentDialogue.split("\n"))
-        {
+        for (String line : currentDialogue.split("\n")) {
             g2.drawString(line, x, y);
             y += 40;
         }
@@ -80,8 +145,7 @@ public class UI {
 
     }
 
-    public void drawSubWindow(int x, int y, int width, int height)
-    {
+    public void drawSubWindow(int x, int y, int width, int height) {
         Color c = new Color(0, 0, 0, 220);
         g2.setColor(c);
         g2.fillRoundRect(x, y, width, height, 35, 35);
@@ -107,11 +171,19 @@ public class UI {
         return x;
     }
 
-    public void setGameFinished(boolean gameFinished) {
+    /*public void setGameFinished(boolean gameFinished) {
         this.gameFinished = gameFinished;
-    }
+    }*/
 
     public void setCurrentDialogue(String currentDialogue) {
         this.currentDialogue = currentDialogue;
+    }
+
+    public void setCommandNum(int commandNum) {
+        this.commandNum = commandNum;
+    }
+
+    public int getCommandNum() {
+        return commandNum;
     }
 }
