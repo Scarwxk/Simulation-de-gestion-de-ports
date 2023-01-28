@@ -9,7 +9,7 @@ public class SuperObject {
     private final Rectangle solidArea = new Rectangle(0, 0, 48, 48);
     public int solidAreaDefaultX = 0;
     public int solidAreaDefaultY = 0;
-    private BufferedImage image;
+    protected BufferedImage image, image2, image3;
     private String name;
     private boolean collision = false;
     private int worldX, worldY;
@@ -20,6 +20,15 @@ public class SuperObject {
 
     public void setImage(BufferedImage image) {
         this.image = image;
+    }
+
+
+    public BufferedImage getImage2() {
+        return image2;
+    }
+
+    public BufferedImage getImage3() {
+        return image3;
     }
 
     public String getName() {

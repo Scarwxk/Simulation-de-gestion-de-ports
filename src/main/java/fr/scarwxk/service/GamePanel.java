@@ -33,14 +33,19 @@ public class GamePanel extends JPanel implements Runnable {
     private final CollisionChecker collisionChecker = new CollisionChecker(this);
     private final AssetSetter aSetter = new AssetSetter(this);
     private final UI ui = new UI(this);
+
+    private final EventHandler eHandler = new EventHandler(this);
+
+    private Thread gameThread;
     // ENTITY AND OBJECT
     private final Player player = new Player(this, keyH);
     private final SuperObject[] obj = new SuperObject[10];
     private final Entity[] npc = new Entity[5];
-    private Thread gameThread;
+
 
     // GAME STATE
     private int gameState;
+    private final int titleState = 0;
     private final int playState = 1;
     private final int pauseState = 2;
     private final int dialogueState = 3;
@@ -57,8 +62,8 @@ public class GamePanel extends JPanel implements Runnable {
         aSetter.setObject();
         aSetter.setNpc();
         // Play the game music (index 0)
-        playMusic(0);
-        gameState = playState;
+        // playMusic(0);
+        gameState = titleState;
     }
 
     public void startGameThread() {
@@ -115,7 +120,6 @@ public class GamePanel extends JPanel implements Runnable {
             }
         }
         if (gameState == pauseState) {
-
         }
 
     }
@@ -125,27 +129,35 @@ public class GamePanel extends JPanel implements Runnable {
 
         Graphics2D g2 = (Graphics2D) g;
 
-        // Tile
-        tileM.draw(g2);
-        // Objects
-        for (SuperObject superObject : obj) {
-            if (superObject != null) {
-                superObject.draw(g2, this);
+        // Title Screen
+        if (gameState == titleState) {
+            ui.draw(g2);
+        }
+        // Others
+        else {
+            // Tile
+            tileM.draw(g2);
+            // Objects
+            for (SuperObject superObject : obj) {
+                if (superObject != null) {
+                    superObject.draw(g2, this);
+                }
             }
+
+            // NPC
+            for (Entity entity : npc) {
+                if (entity != null) {
+                    entity.draw(g2);
+                }
+            }
+
+            // Player
+            player.draw(g2);
+
+            // UI
+            ui.draw(g2);
         }
 
-        // NPC
-        for (Entity entity : npc) {
-            if (entity != null) {
-                entity.draw(g2);
-            }
-        }
-
-        // Player
-        player.draw(g2);
-
-        // UI
-        ui.draw(g2);
 
         g2.dispose();
     }
@@ -237,5 +249,11 @@ public class GamePanel extends JPanel implements Runnable {
         return keyH;
     }
 
+    public int getTitleState() {
+        return titleState;
+    }
 
+    public EventHandler geteHandler() {
+        return eHandler;
+    }
 }

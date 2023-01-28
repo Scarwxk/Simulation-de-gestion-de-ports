@@ -25,17 +25,17 @@ public class NPC_OldMan extends Entity {
             up3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman_up_1.png")));
             up4 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman_up_2.png")));
             down1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman_down_1.png")));
-            down2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman_down_1.png")));
+            down2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman_down_2.png")));
             down3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman_down_1.png")));
-            down4 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman_down_1.png")));
+            down4 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman_down_2.png")));
             left1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman_left_1.png")));
             left2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman_left_2.png")));
             left3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman_left_1.png")));
             left4 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman_left_2.png")));
             right1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman_right_1.png")));
-            right2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman_right_1.png")));
+            right2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman_right_2.png")));
             right3 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman_right_1.png")));
-            right4 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman_right_1.png")));
+            right4 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman_right_2.png")));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -65,14 +65,12 @@ public class NPC_OldMan extends Entity {
         }
     }
 
-    public void setDialogue()
-    {
+    public void setDialogue() {
         dialogues[0] = "Salut à toi voyageur.";
         dialogues[1] = "Tu es venu pour t'emparer du trésor ?\nCommence par accoster sur l'île";
     }
 
-    public void speak()
-    {
+    public void speak() {
         super.speak();
     }
 }

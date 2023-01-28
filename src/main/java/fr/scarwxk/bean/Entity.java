@@ -34,6 +34,10 @@ public class Entity {
 
     public int dialogueIndex = 0;
 
+    // CHARACTER STATUS
+    private int maxLife;
+    private int life;
+
     public Entity(GamePanel gp) {
         this.gp = gp;
     }
@@ -42,10 +46,8 @@ public class Entity {
 
     }
 
-    public void speak()
-    {
-        if(dialogues[dialogueIndex] == null)
-        {
+    public void speak() {
+        if (dialogues[dialogueIndex] == null) {
             dialogueIndex = 0;
         }
         gp.getUi().setCurrentDialogue(dialogues[dialogueIndex]);
@@ -196,5 +198,23 @@ public class Entity {
         return spriteDict.get(getSpriteNum());
     }
 
+    public BufferedImage getRight1() {
+        return right1;
+    }
 
+    public int getMaxLife() {
+        return maxLife;
+    }
+
+    public void setMaxLife(int maxLife) {
+        this.maxLife = maxLife;
+    }
+
+    public int getLife() {
+        return life;
+    }
+
+    public void setLife(int life) {
+        this.life = life;
+    }
 }

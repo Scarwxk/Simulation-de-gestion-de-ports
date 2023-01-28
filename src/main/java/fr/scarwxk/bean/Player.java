@@ -24,7 +24,7 @@ public class Player extends Bateau {
         this.screenX = gp.getScreenWidth() / 2 - gp.getTileSize() / 2;
         this.screenY = gp.getScreenHeight() / 2 - gp.getTileSize() / 2;
 
-        this.setSolidArea(new Rectangle(0, 0, gp.getTileSize(), gp.getTileSize()));
+        this.setSolidArea(new Rectangle(0, 0, gp.getTileSize() - 5, gp.getTileSize() - 5));
         this.setSolidAreaDefaultX(this.getSolidArea().x);
         this.setSolidAreaDefaultY(this.getSolidArea().y);
 
@@ -36,6 +36,8 @@ public class Player extends Bateau {
         this.worldX = gp.getTileSize() * 24;
         this.worldY = gp.getTileSize() * 8;
         this.speed = 3;
+        this.setMaxLife(6);
+        this.setLife(getMaxLife());
         setDirection("right");
     }
 
@@ -90,6 +92,11 @@ public class Player extends Bateau {
         // CHECK NPC COLLISION
         int npcIndex = gp.getCollisionChecker().checkEntity(this, gp.getNpc());
         interactNPC(npcIndex);
+
+        // CHECK EVENT
+        gp.geteHandler().checkEvent();
+        gp.getKeyH().enterPressed = false;
+
         // IF !COLLISION, CAN MOVE
 
         if (!isCollisionOn() && (keyH.upPressed || keyH.downPressed || keyH.leftPressed || keyH.rightPressed)) {
@@ -125,7 +132,7 @@ public class Player extends Bateau {
                 gp.getNpc()[i].speak();
             }
         }
-        gp.getKeyH().enterPressed = false;
+
     }
 
     /**
