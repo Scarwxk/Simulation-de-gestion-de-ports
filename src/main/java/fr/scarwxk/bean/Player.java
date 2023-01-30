@@ -35,7 +35,7 @@ public class Player extends Bateau {
     public void setDefaultValues() {
         this.worldX = gp.getTileSize() * 24;
         this.worldY = gp.getTileSize() * 8;
-        this.speed = 3;
+        this.speed = 4;
         this.setMaxLife(6);
         this.setLife(getMaxLife());
         setDirection("right");
@@ -95,7 +95,9 @@ public class Player extends Bateau {
 
         // CHECK EVENT
         gp.geteHandler().checkEvent();
+
         gp.getKeyH().enterPressed = false;
+
 
         // IF !COLLISION, CAN MOVE
 
@@ -127,7 +129,7 @@ public class Player extends Bateau {
     public void interactNPC(int i) {
         if (i != 999) {
 
-            if(gp.getKeyH().enterPressed) {
+            if (gp.getKeyH().enterPressed) {
                 gp.setGameState(gp.getDialogueState());
                 gp.getNpc()[i].speak();
             }

@@ -14,11 +14,9 @@ public class NPC_OldMan extends Entity {
         setDirection("down");
         speed = 1;
 
-        getImage();
+        // getImage();
         setDialogue();
-    }
 
-    private void getImage() {
         try {
             up1 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman_up_1.png")));
             up2 = ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/npc/oldman_up_2.png")));

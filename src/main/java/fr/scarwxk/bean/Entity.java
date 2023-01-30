@@ -17,7 +17,7 @@ public class Entity {
             down1, down2, down3, down4,
             left1, left2, left3, left4,
             right1, right2, right3, right4;
-    private String direction;
+    private String direction = "down";
 
     private int spriteCounter = 0;
     private int spriteNum = 1;
@@ -33,6 +33,10 @@ public class Entity {
     public String[] dialogues = new String[20];
 
     public int dialogueIndex = 0;
+
+    protected BufferedImage image, image2, image3;
+    private String name;
+    private boolean collision = false;
 
     // CHARACTER STATUS
     private int maxLife;
@@ -216,5 +220,45 @@ public class Entity {
 
     public void setLife(int life) {
         this.life = life;
+    }
+
+    public BufferedImage getImage() {
+        return image;
+    }
+
+    public void setImage(BufferedImage image) {
+        this.image = image;
+    }
+
+    public BufferedImage getImage2() {
+        return image2;
+    }
+
+    public void setImage2(BufferedImage image2) {
+        this.image2 = image2;
+    }
+
+    public BufferedImage getImage3() {
+        return image3;
+    }
+
+    public void setImage3(BufferedImage image3) {
+        this.image3 = image3;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public boolean isCollision() {
+        return collision;
+    }
+
+    public void setCollision(boolean collision) {
+        this.collision = collision;
     }
 }

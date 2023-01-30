@@ -3,10 +3,12 @@ package fr.scarwxk.service;
 import fr.scarwxk.bean.Entity;
 import fr.scarwxk.bean.Player;
 import fr.scarwxk.bean.TileManager;
-import fr.scarwxk.object.SuperObject;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable {
     //SCREEN SETTINGS
@@ -39,8 +41,9 @@ public class GamePanel extends JPanel implements Runnable {
     private Thread gameThread;
     // ENTITY AND OBJECT
     private final Player player = new Player(this, keyH);
-    private final SuperObject[] obj = new SuperObject[10];
+    private final Entity[] obj = new Entity[10];
     private final Entity[] npc = new Entity[5];
+    private final ArrayList<Entity> entityList = new ArrayList<>();
 
 
     // GAME STATE
@@ -137,22 +140,34 @@ public class GamePanel extends JPanel implements Runnable {
         else {
             // Tile
             tileM.draw(g2);
-            // Objects
-            for (SuperObject superObject : obj) {
-                if (superObject != null) {
-                    superObject.draw(g2, this);
-                }
-            }
 
-            // NPC
+            // ADD entities to list
+            entityList.add(player);
+
             for (Entity entity : npc) {
                 if (entity != null) {
-                    entity.draw(g2);
+                    entityList.add(entity);
                 }
             }
 
-            // Player
-            player.draw(g2);
+            for (Entity entity : obj) {
+                if (entity != null) {
+                    entityList.add(entity);
+                }
+            }
+
+            // SORT par rapport à leur position en Y
+
+            entityList.sort(Comparator.comparingInt(Entity::getWorldY));
+
+            // DRAW ENTITIES
+            for (Entity en : entityList) {
+                en.draw(g2);
+            }
+
+            for (int i = 0; i < entityList.size(); i++) {
+                entityList.remove(i);
+            }
 
             // UI
             ui.draw(g2);
@@ -209,9 +224,6 @@ public class GamePanel extends JPanel implements Runnable {
         return tileM;
     }
 
-    public SuperObject[] getObj() {
-        return obj;
-    }
 
     public Entity[] getNpc() {
         return npc;
@@ -255,5 +267,9 @@ public class GamePanel extends JPanel implements Runnable {
 
     public EventHandler geteHandler() {
         return eHandler;
+    }
+
+    public Entity[] getObj() {
+        return obj;
     }
 }

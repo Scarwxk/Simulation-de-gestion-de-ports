@@ -1,7 +1,5 @@
 package fr.scarwxk.service;
 
-import fr.scarwxk.object.Key;
-
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -54,29 +52,23 @@ public class KeyHandler implements KeyListener {
 
 
         // PLAY STATE
-        if (gp.getGameState() == gp.getPlayState()) {
-            if(code == KeyEvent.VK_Z || code == KeyEvent.VK_UP)
-            {
+        else if (gp.getGameState() == gp.getPlayState()) {
+            if (code == KeyEvent.VK_Z || code == KeyEvent.VK_UP) {
                 upPressed = true;
             }
-            if(code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN)
-            {
+            if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
                 downPressed = true;
             }
-            if(code == KeyEvent.VK_Q || code == KeyEvent.VK_LEFT)
-            {
+            if (code == KeyEvent.VK_Q || code == KeyEvent.VK_LEFT) {
                 leftPressed = true;
             }
-            if(code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT)
-            {
+            if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
                 rightPressed = true;
             }
-            if(code == KeyEvent.VK_P)
-            {
+            if (code == KeyEvent.VK_P) {
                 gp.setGameState(gp.getPauseState());
             }
-            if(code == KeyEvent.VK_ENTER)
-            {
+            if (code == KeyEvent.VK_ENTER) {
                 enterPressed = true;
             }
         }
@@ -99,12 +91,18 @@ public class KeyHandler implements KeyListener {
     public void keyReleased(KeyEvent e) {
         int code = e.getKeyCode();
 
-        switch (code) {
-            case KeyEvent.VK_Z, KeyEvent.VK_UP -> upPressed = false;
-            case KeyEvent.VK_S, KeyEvent.VK_DOWN -> downPressed = false;
-            case KeyEvent.VK_Q, KeyEvent.VK_LEFT -> leftPressed = false;
-            case KeyEvent.VK_D, KeyEvent.VK_RIGHT -> rightPressed = false;
-
+        if (code == KeyEvent.VK_Z || code == KeyEvent.VK_UP) {
+            upPressed = false;
         }
+        if (code == KeyEvent.VK_S || code == KeyEvent.VK_DOWN) {
+            downPressed = false;
+        }
+        if (code == KeyEvent.VK_Q || code == KeyEvent.VK_LEFT) {
+            leftPressed = false;
+        }
+        if (code == KeyEvent.VK_D || code == KeyEvent.VK_RIGHT) {
+            rightPressed = false;
+        }
+
     }
 }

@@ -1,7 +1,7 @@
 package fr.scarwxk.service;
 
+import fr.scarwxk.bean.Entity;
 import fr.scarwxk.object.Heart;
-import fr.scarwxk.object.SuperObject;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -37,7 +37,7 @@ public class UI {
         }
 
         // CREATE HUD OBJECT
-        SuperObject heart = new Heart(gp);
+        Entity heart = new Heart(gp);
         heart_full = heart.getImage();
         heart_half = heart.getImage2();
         heart_blank = heart.getImage3();
@@ -83,8 +83,7 @@ public class UI {
         int i = 0;
 
         // DRAW BLANK HEARTS
-        while (i < gp.getPlayer().getMaxLife() / 2)
-        {
+        while (i < gp.getPlayer().getMaxLife() / 2) {
             g2.drawImage(heart_blank, x, y, null);
             i++;
             x += gp.getTileSize();
@@ -96,12 +95,10 @@ public class UI {
         i = 0;
 
         // DRAW CURRENT LIFE
-        while(i < gp.getPlayer().getLife())
-        {
-            g2.drawImage(heart_half,x, y, null);
+        while (i < gp.getPlayer().getLife()) {
+            g2.drawImage(heart_half, x, y, null);
             i++;
-            if(i < gp.getPlayer().getLife())
-            {
+            if (i < gp.getPlayer().getLife()) {
                 g2.drawImage(heart_full, x, y, null);
             }
             i++;
