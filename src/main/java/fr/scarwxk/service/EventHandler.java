@@ -1,7 +1,5 @@
 package fr.scarwxk.service;
 
-import java.awt.*;
-
 public class EventHandler {
 
     private final GamePanel gp;
@@ -86,8 +84,11 @@ public class EventHandler {
         gp.getUi().currentDialogue = "Une tempête attaque !";
         gp.getPlayer().setLife(gp.getPlayer().getLife() - 1);
         // Si je veux un event réalisable une seule fois
+
         //eventRect[col][row].setEventDone(true);
+
         // Si je veux un event réalisable à chaque fois que je m'éloigne de 1 tile
+
         canTouchEvent = false;
     }
 

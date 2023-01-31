@@ -24,7 +24,7 @@ public class TileManager {
         mapTileNum = new int[gp.getMaxWorldCol()][gp.getMaxWorldRow()];
 
         getTileImage();
-        loadMap("/maps/world01.txt");
+        loadMap("/maps/world02.txt");
     }
 
     /**
@@ -41,7 +41,6 @@ public class TileManager {
 
             tile[2] = new Tile();
             tile[2].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/dirt.png"))));
-            tile[2].setCollision(true);
 
             tile[3] = new Tile();
             tile[3].setImage(ImageIO.read(Objects.requireNonNull(getClass().getResourceAsStream("/tiles/ladder.png"))));

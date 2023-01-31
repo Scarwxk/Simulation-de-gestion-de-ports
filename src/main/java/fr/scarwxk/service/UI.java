@@ -16,7 +16,9 @@ public class UI {
     private final Font gameFont;
     private int commandNum = 0;
 
-    private BufferedImage heart_full, heart_half, heart_blank;
+    private final BufferedImage heart_full;
+    private final BufferedImage heart_half;
+    private final BufferedImage heart_blank;
 
 
     /*private boolean messageOn = false;

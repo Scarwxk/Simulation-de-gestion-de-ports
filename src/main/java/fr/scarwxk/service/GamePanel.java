@@ -7,7 +7,6 @@ import fr.scarwxk.bean.TileManager;
 import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Comparator;
 
 public class GamePanel extends JPanel implements Runnable {
@@ -21,8 +20,8 @@ public class GamePanel extends JPanel implements Runnable {
     private final static int screenHeight = tileSize * maxScreenRow; // 576 pixels
 
     // WORLD SETTINGS
-    private final static int maxWorldCol = 50;
-    private final static int maxWorldRow = 50;
+    private final static int maxWorldCol = 250;
+    private final static int maxWorldRow = 250;
 
     private final static int FPS = 60;
     private final static double INT_INTERVAL = 1000000000;

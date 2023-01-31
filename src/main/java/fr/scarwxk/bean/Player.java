@@ -33,9 +33,9 @@ public class Player extends Bateau {
     }
 
     public void setDefaultValues() {
-        this.worldX = gp.getTileSize() * 24;
-        this.worldY = gp.getTileSize() * 8;
-        this.speed = 4;
+        this.worldX = gp.getTileSize() * 100;
+        this.worldY = gp.getTileSize() * 100;
+        this.speed = 7;
         this.setMaxLife(6);
         this.setLife(getMaxLife());
         setDirection("right");
