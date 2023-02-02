@@ -2,6 +2,7 @@ package fr.scarwxk.service;
 
 import fr.scarwxk.bean.Entity;
 import fr.scarwxk.bean.Player;
+import fr.scarwxk.bean.Port;
 import fr.scarwxk.bean.TileManager;
 
 import javax.swing.*;
@@ -44,6 +45,8 @@ public class GamePanel extends JPanel implements Runnable {
     private final Entity[] npc = new Entity[5];
     private final ArrayList<Entity> entityList = new ArrayList<>();
 
+    // PORTS / QUAIS
+    private final PortSetter portSetter = new PortSetter(this);
 
     // GAME STATE
     private int gameState;
@@ -51,6 +54,7 @@ public class GamePanel extends JPanel implements Runnable {
     private final int playState = 1;
     private final int pauseState = 2;
     private final int dialogueState = 3;
+    private final int choiceState = 4;
 
     public GamePanel() {
         this.setPreferredSize(new Dimension(screenWidth, screenHeight));
@@ -63,6 +67,7 @@ public class GamePanel extends JPanel implements Runnable {
     public void setupGame() {
         aSetter.setObject();
         aSetter.setNpc();
+        portSetter.setPort();
         // Play the game music (index 0)
         // playMusic(0);
         gameState = titleState;
@@ -168,6 +173,7 @@ public class GamePanel extends JPanel implements Runnable {
                 entityList.remove(i);
             }
 
+
             // UI
             ui.draw(g2);
         }
@@ -270,5 +276,13 @@ public class GamePanel extends JPanel implements Runnable {
 
     public Entity[] getObj() {
         return obj;
+    }
+
+    public PortSetter getPortSetter() {
+        return portSetter;
+    }
+
+    public int getChoiceState() {
+        return choiceState;
     }
 }

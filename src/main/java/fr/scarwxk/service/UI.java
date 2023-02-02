@@ -76,6 +76,12 @@ public class UI {
             drawPlayerLife();
             drawDialogueScreen();
         }
+
+        // CHOICE STATE
+        if (gp.getGameState() == gp.getChoiceState()) {
+            drawPlayerLife();
+            drawChoiceScreen();
+        }
     }
 
     private void drawPlayerLife() {
@@ -212,15 +218,39 @@ public class UI {
         g2.drawString(text, x, y);
     }
 
+    public void drawChoiceScreen() {
+        drawDialogueScreen();
+
+        String text;
+        int x;
+        int y = gp.getTileSize() * 3;
+
+        // MENU
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 32F));
+
+        g2.setColor(Color.WHITE);
+        text = "OUI";
+        x = 2 * gp.getTileSize() + getXforCenteredText(text);
+        g2.drawString(text, x, y);
+        if (commandNum == 0) {
+            g2.drawImage(gp.getPlayer().getRight1(), x - gp.getTileSize(), y - gp.getTileSize() / 4 * 3, gp.getTileSize(), gp.getTileSize(), null);
+        }
+
+        g2.setColor(Color.WHITE);
+        text = "NON";
+        x -= 4 * gp.getTileSize();
+        g2.drawString(text, x, y);
+        if (commandNum == 1) {
+            g2.drawImage(gp.getPlayer().getRight1(), x - gp.getTileSize(), y - gp.getTileSize() / 4 * 3, gp.getTileSize(), gp.getTileSize(), null);
+        }
+
+    }
+
     public int getXforCenteredText(String text) {
         int length = (int) g2.getFontMetrics().getStringBounds(text, g2).getWidth();
         int x = gp.getScreenWidth() / 2 - length / 2;
         return x;
     }
-
-    /*public void setGameFinished(boolean gameFinished) {
-        this.gameFinished = gameFinished;
-    }*/
 
     public void setCurrentDialogue(String currentDialogue) {
         this.currentDialogue = currentDialogue;

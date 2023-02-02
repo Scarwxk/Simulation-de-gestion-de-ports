@@ -32,4 +32,8 @@ public class Port {
     public void retirerBateau() {
         this.quai.retirerBateau();
     }
+
+    public Quais getQuai() {
+        return quai;
+    }
 }

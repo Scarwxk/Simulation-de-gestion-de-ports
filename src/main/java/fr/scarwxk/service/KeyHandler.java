@@ -85,6 +85,32 @@ public class KeyHandler implements KeyListener {
                 gp.setGameState(gp.getPlayState());
             }
         }
+        // CHOICE STATE
+        else if (gp.getGameState() == gp.getChoiceState()) {
+            switch (code) {
+                case KeyEvent.VK_Q, KeyEvent.VK_LEFT -> {
+                    gp.getUi().setCommandNum(gp.getUi().getCommandNum() - 1);
+                    if (gp.getUi().getCommandNum() < 0) {
+                        gp.getUi().setCommandNum(1);
+                    }
+                }
+                case KeyEvent.VK_D, KeyEvent.VK_RIGHT -> {
+                    gp.getUi().setCommandNum(gp.getUi().getCommandNum() + 1);
+                    if (gp.getUi().getCommandNum() > 1) {
+                        gp.getUi().setCommandNum(0);
+                    }
+                }
+                case KeyEvent.VK_ENTER -> {
+                    enterPressed = true;
+                    if (gp.getUi().getCommandNum() == 0) {
+                        gp.setGameState(gp.getPlayState());
+                    }
+                    if (gp.getUi().getCommandNum() == 1) {
+                        gp.setGameState(gp.getPlayState());
+                    }
+                }
+            }
+        }
     }
 
     @Override

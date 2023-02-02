@@ -1,5 +1,8 @@
 package fr.scarwxk.service;
 
+import fr.scarwxk.bean.Port;
+import fr.scarwxk.bean.QuaisPosition;
+
 public class EventHandler {
 
     private final GamePanel gp;
@@ -49,6 +52,14 @@ public class EventHandler {
                 damage(45, 6, gp.getDialogueState());
                 gp.getPlayer().setDirection("left");
             }
+            for (Port port : gp.getPortSetter().getPorts()) {
+                for (QuaisPosition quais : port.getQuai().getPositionQuais()) {
+                    if (hit(quais.x(), quais.y(), "any")) {
+                        accoster();
+                    }
+                }
+            }
+
         }
     }
 
@@ -83,6 +94,7 @@ public class EventHandler {
         gp.setGameState(gameState);
         gp.getUi().currentDialogue = "Une tempête attaque !";
         gp.getPlayer().setLife(gp.getPlayer().getLife() - 1);
+
         // Si je veux un event réalisable une seule fois
 
         //eventRect[col][row].setEventDone(true);
@@ -90,6 +102,21 @@ public class EventHandler {
         // Si je veux un event réalisable à chaque fois que je m'éloigne de 1 tile
 
         canTouchEvent = false;
+    }
+
+    public void accoster() {
+        gp.setGameState(gp.getChoiceState());
+        gp.getUi().currentDialogue = "Veux tu accoster ?";
+        if (gp.getKeyH().enterPressed && gp.getUi().getCommandNum() == 0) {
+            gp.getPlayer().setWorldX(70);
+            gp.getPlayer().setWorldY(70);
+            gp.setGameState(gp.getDialogueState());
+            gp.getUi().currentDialogue = "Tu as accosté !";
+        } else if (gp.getKeyH().enterPressed && gp.getUi().getCommandNum() == 1) {
+            gp.setGameState(gp.getDialogueState());
+            gp.getUi().currentDialogue = "Tu peux repartir !";
+            gp.getPlayer().setWorldY(gp.getPlayer().getWorldY() + gp.getTileSize());
+        }
     }
 
     public void healingPool(int gameState) {
