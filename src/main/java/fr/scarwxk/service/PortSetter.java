@@ -16,10 +16,10 @@ public class PortSetter {
     }
 
     public void setPort() {
-        ports[0] = new Port(35, 91, 6);
-        ports[1] = new Port(100, 81, 3);
-        ports[2] = new Port(147, 76, 3);
-        ports[3] = new Port(150, 36, 6);
+        ports[0] = new Port(35, 97, 6, "Tugais");
+        ports[1] = new Port(100, 81, 3, "Table");
+        ports[2] = new Port(147, 76, 3, "Salut");
+        ports[3] = new Port(150, 36, 6, "Cinet");
         setQuais();
     }
 

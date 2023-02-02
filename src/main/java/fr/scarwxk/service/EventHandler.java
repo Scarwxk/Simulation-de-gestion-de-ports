@@ -108,8 +108,8 @@ public class EventHandler {
         gp.setGameState(gp.getChoiceState());
         gp.getUi().currentDialogue = "Veux tu accoster ?";
         if (gp.getKeyH().enterPressed && gp.getUi().getCommandNum() == 0) {
-            gp.getPlayer().setWorldX(70);
-            gp.getPlayer().setWorldY(70);
+            gp.getPlayer().setWorldX(70 * gp.getTileSize());
+            gp.getPlayer().setWorldY(70 * gp.getTileSize());
             gp.setGameState(gp.getDialogueState());
             gp.getUi().currentDialogue = "Tu as accosté !";
         } else if (gp.getKeyH().enterPressed && gp.getUi().getCommandNum() == 1) {

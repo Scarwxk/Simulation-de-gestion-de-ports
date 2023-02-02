@@ -1,6 +1,7 @@
 package fr.scarwxk.service;
 
 import fr.scarwxk.bean.Entity;
+import fr.scarwxk.bean.Port;
 import fr.scarwxk.object.Heart;
 
 import java.awt.*;
@@ -65,6 +66,7 @@ public class UI {
         // PLAY STATE
         if (gp.getGameState() == gp.getPlayState()) {
             drawPlayerLife();
+            drawNextPortDistance();
         }
         // PAUSE STATE
         if (gp.getGameState() == gp.getPauseState()) {
@@ -82,6 +84,32 @@ public class UI {
             drawPlayerLife();
             drawChoiceScreen();
         }
+    }
+
+    private void drawNextPortDistance() {
+        Port[] allPorts = gp.getPortSetter().getPorts();
+        Port closestPort = allPorts[0];
+        float closestPortDistance = 99999;
+
+        for (Port port : allPorts) {
+            float portDistance = (float) (Math.sqrt(Math.pow(port.retourneX() * gp.getTileSize() - gp.getPlayer().getWorldX(), 2) +
+                    Math.pow(port.retourneY() * gp.getTileSize() - gp.getPlayer().getWorldY(), 2)));
+            closestPortDistance = (float) (Math.sqrt(Math.pow(closestPort.retourneX() * gp.getTileSize() - gp.getPlayer().getWorldX(), 2) +
+                    Math.pow(closestPort.retourneY() * gp.getTileSize() - gp.getPlayer().getWorldY(), 2)));
+            if (closestPortDistance > portDistance) {
+                closestPort = port;
+            }
+        }
+
+        int x = gp.getTileSize() * 8;
+        int y = gp.getTileSize() / 2;
+
+        String text = "Le port le plus proche est " + closestPort.getName();
+        g2.setFont(g2.getFont().deriveFont(Font.BOLD, 32F));
+        g2.setColor(Color.WHITE);
+        g2.drawString(text, x, y);
+        text = closestPortDistance / gp.getTileSize() + " cases";
+        g2.drawString(text, x, y + gp.getTileSize());
     }
 
     private void drawPlayerLife() {

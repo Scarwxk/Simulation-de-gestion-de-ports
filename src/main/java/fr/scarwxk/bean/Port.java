@@ -4,17 +4,27 @@ public class Port {
     private final double x;
     private final double y;
     private final Quais quai;
+    private final String name;
 
     public Port(double x, double y) {
         this.x = x;
         this.y = y;
+        this.name = "";
         this.quai = new Quais();
     }
 
-    public Port(double x, double y, int nb_quai) {
+    public Port(double x, double y, int nb_quai, String name) {
         this.x = x;
         this.y = y;
+        this.name = name;
         this.quai = new Quais(nb_quai);
+    }
+
+    public Port(double x, double y, Quais quai) {
+        this.x = x;
+        this.y = y;
+        this.quai = quai;
+        this.name = "";
     }
 
     public double retourneX() {
@@ -35,5 +45,9 @@ public class Port {
 
     public Quais getQuai() {
         return quai;
+    }
+
+    public String getName() {
+        return name;
     }
 }
